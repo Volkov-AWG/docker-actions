@@ -1,13 +1,16 @@
-name: A workflow for my Hello World file
+name: Autotests worker
 
 on: push
 
 jobs:
-  build:
-    name: Hello world action
+  docker:
+    timeout-minutes: 20
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: ./action-a
-        with:
-          KOSTIA: "Константин"
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Start containers
+        run: docker-compose up -d
+
