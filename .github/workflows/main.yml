@@ -12,5 +12,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Start containers
-        run: docker-compose up -d
+        run: mongo/docker-compose up -d
+      - name: drop containers
+        run: mongo/docker-compose down
 
