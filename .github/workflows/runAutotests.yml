@@ -26,6 +26,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: build and deploy microservice
-        run: docker build -t local -f ./.github/workflows/components/microservice/Dockerfile
+        run: docker build -f ./.github/workflows/components/microservice/Dockerfile
 
 
