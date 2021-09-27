@@ -8,26 +8,24 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: Create docker net
         run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
       - name: Run MONGO container
-        run: docker-compose -f ./mongo/docker-compose.yml up -d
+        run: docker-compose -f /mongo/docker-compose.yml up -d
       - name: Run POSTGRES container
-        run: docker-compose -f ./postgres/docker-compose.yml up -d
+        run: docker-compose -f /postgres/docker-compose.yml up -d
       - name: Run KAFKA container
-        run: docker-compose -f ./kafka/docker-compose.yml up -d
+        run: docker-compose -f /kafka/docker-compose.yml up -d
       - name: Run MAUNTEBANK container
-        run: docker-compose -f ./mauntebank/docker-compose.yml up -d
+        run: docker-compose -f /mauntebank/docker-compose.yml up -d
   deploy_microservice:
     timeout-minutes: 20
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
       - name: build and deploy microservice
-        run: docker build -t local -f ./microservice/Dockerfile
+        run: docker build -t local -f /microservice/Dockerfile
 
 
