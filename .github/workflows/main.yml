@@ -11,8 +11,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Create net
-        run: docker NETWORK create --driver=bridge --subnet=10.10.0.0/16 test_net
+      - name: Create docker net
+        run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
       - name: Run MONGO container
         run: docker-compose -f ./mongo/docker-compose.yml up -d
       - name: Run POSTGRES container
