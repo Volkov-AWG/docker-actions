@@ -12,12 +12,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Create net
-        run: docker network create --driver=bridge --subnet=10.10.0.0/16 test_net
-      - name: Start mongo container
+        run: docker NETWORK create --driver=bridge --subnet=10.10.0.0/16 test_net
+      - name: Run MONGO container
         run: docker-compose -f ./mongo/docker-compose.yml up -d
-      - name: Start postgres container
+      - name: Run POSTGRES container
         run: docker-compose -f ./postgres/docker-compose.yml up -d
-      - name: Drop mongo container
-        run: docker-compose -f ./mongo/docker-compose.yml down
-      - name: Drop postgres container
-        run: docker-compose -f ./postgres/docker-compose.yml down
+      - name: Run KAFKA container
+        run: docker-compose -f ./kafka/docker-compose.yml up -d
+      - name: Run MAUNTEBANK container
+        run: docker-compose -f ./mauntebank/docker-compose.yml up -d
+

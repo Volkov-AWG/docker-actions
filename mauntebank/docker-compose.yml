@@ -1,43 +1,22 @@
-version: '3'
+version: "3.5"
 
 services:
-
-  mongo:
-    image: mongo:4.0.21-xenial
+  mountebank:
+    container_name: mountebank_container
+    image: jkris/mountebank:latest
     restart: always
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./imposters:/imposters
     ports:
-      - "3303:27017"
+      - 2525:2525
+      - 8090:8090
     networks:
-      mongus:
-        ipv4_address: "10.12.0.5"
-
-  mongo-express:
-    image: mongo-express:0.54
-    restart: always
-    environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
-      ME_CONFIG_MONGODB_URL: mongodb://root:example@mongo:27017/
-      ME_CONFIG_BASICAUTH_USERNAME: student
-      ME_CONFIG_BASICAUTH_PASSWORD: student
-    depends_on:
-      - mongo
-    ports:
-      - "3302:8081"
-    networks:
-      mongus:
-        ipv4_address: "10.12.0.4"
+      test_net:
+        ipv4_address: "10.10.0.14"
 
 networks:
-  mongus:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.12.0.0/16
+  test_net:
+    name: test_net
 
 volumes:
-  mongo:
-  mongo-express:
+  mountebank:
