@@ -11,8 +11,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Start containers
+      - name: Create net
+        run: docker network create --driver=bridge --subnet=10.10.0.0/16 test_net
+      - name: Start mongo container
         run: docker-compose -f ./mongo/docker-compose.yml up -d
-      - name: drop containers
+      - name: Start postgres container
+        run: docker-compose -f ./postgres/docker-compose.yml up -d
+      - name: Drop mongo container
         run: docker-compose -f ./mongo/docker-compose.yml down
-
+      - name: Drop postgres container
+        run: docker-compose -f ./postgres/docker-compose.yml down
