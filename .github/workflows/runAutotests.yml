@@ -3,21 +3,38 @@ name: Autotests worker
 on: push
 
 jobs:
-  before_env:
+  Create-docker-net:
     timeout-minutes: 20
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: Create docker net
-        run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
-      - name: Run MONGO container
-        run: docker-compose -f ./.github/workflows/components/mongo/docker-compose.yml up -d
-      - name: Run POSTGRES container
-        run: docker-compose -f ./.github/workflows/components/postgres/docker-compose.yml up -d
-      - name: Run KAFKA container
-        run: docker-compose -f ./.github/workflows/components/kafka/docker-compose.yml up -d
-      - name: Run MAUNTEBANK container
-        run: docker-compose -f ./.github/workflows/components/mauntebank/docker-compose.yml up -d
-      - name: Get info about docker net
-        run: docker network inspect test_net
+      - run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
+  Run-MONGO-container:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [Create-docker-net]
+    steps:
+      - run: docker-compose -f ./.github/workflows/components/mongo/docker-compose.yml up -d
+  Run-POSTGRES-container:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [Create-docker-net]
+    steps:    
+      - run: docker-compose -f ./.github/workflows/components/postgres/docker-compose.yml up -d
+  Run-KAFKA-container:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [Create-docker-net]
+    steps:    
+      - run: docker-compose -f ./.github/workflows/components/kafka/docker-compose.yml up -d
+  Run-MAUNTEBANK-container:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [Create-docker-net]
+    steps:    
+       - run: docker-compose -f ./.github/workflows/components/mauntebank/docker-compose.yml up -d
+  Get-info-docker-net:
+    timeout-minutes: 20
+    runs-on: ubuntu-latest
+    needs: [Create-docker-net,Run-MONGO-container,Run-POSTGRES-container,Run-KAFKA-container,Run-MAUNTEBANK-container]
+    steps:          
+       - run: docker network inspect test_net
