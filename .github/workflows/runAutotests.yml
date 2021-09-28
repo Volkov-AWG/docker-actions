@@ -13,19 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:
-      - run: docker-compose -f components/mongo/docker-compose.yml up -d
+      - run: docker-compose -f /workflows/components/mongo/docker-compose.yml up -d
   Run-POSTGRES-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:    
-      - run: docker-compose -f /components/postgres/docker-compose.yml up -d
+      - run: docker-compose -f workflows/components/postgres/docker-compose.yml up -d
   Run-KAFKA-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:    
-      - run: docker-compose -f ./components/kafka/docker-compose.yml up -d
+      - run: docker-compose -f ./workflows/components/kafka/docker-compose.yml up -d
   Run-MAUNTEBANK-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
