@@ -3,29 +3,24 @@ name: Autotests worker
 on: push
 
 jobs:
-  before_env:
+  deploy_autotest:
     timeout-minutes: 20
     runs-on: ubuntu-latest
 
     steps:
+      - name: Ceckout autotest repository
+        uses: actions/checkout@master
+        with:
+          name: Volkov-AWG/antology
+          ref: refs/heads/release
       - uses: actions/checkout@v2
-      - name: Create docker net
-        run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
-      - name: Run MONGO container
-        run: docker-compose -f ./.github/workflows/components/mongo/docker-compose.yml up -d
-      - name: Run POSTGRES container
-        run: docker-compose -f ./.github/workflows/components/postgres/docker-compose.yml up -d
-      - name: Run KAFKA container
-        run: docker-compose -f ./.github/workflows/components/kafka/docker-compose.yml up -d
-      - name: Run MAUNTEBANK container
-        run: docker-compose -f ./.github/workflows/components/mauntebank/docker-compose.yml up -d
-  deploy_microservice:
-    timeout-minutes: 20
-    runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v2
-      - name: build and deploy microservice
-        run: docker build -f ./.github/workflows/components/microservice/Dockerfile
+      - name: Install node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+        run: npm install
+      - name: Run autotests
+        run: node server
 
 
