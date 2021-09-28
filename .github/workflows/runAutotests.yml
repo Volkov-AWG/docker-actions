@@ -19,6 +19,7 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: Npm install
         run: npm install
       - name: Run autotests
         run: node server
