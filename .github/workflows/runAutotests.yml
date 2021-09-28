@@ -19,13 +19,5 @@ jobs:
         run: docker-compose -f ./.github/workflows/components/kafka/docker-compose.yml up -d
       - name: Run MAUNTEBANK container
         run: docker-compose -f ./.github/workflows/components/mauntebank/docker-compose.yml up -d
-  deploy_microservice:
-    timeout-minutes: 20
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v2
-      - name: build and deploy microservice
-        run: docker build -f ./.github/workflows/components/microservice/Dockerfile
-
-
+      - name: Get info about docker net
+        run: docker network inspect test_net
