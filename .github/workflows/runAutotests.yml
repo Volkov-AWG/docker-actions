@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Ceckout autotest repository
-        uses: actions/checkout@try
+        uses: actions/checkout@v1
       - run: ls
 
 
