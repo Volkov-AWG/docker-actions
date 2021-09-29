@@ -1,4 +1,4 @@
-name: Autotests worker
+name: autotests
 
 on: push
 
