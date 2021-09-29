@@ -4,12 +4,12 @@ on: push
 
 jobs:
   deploy_autotest:
-    timeout-minutes: 20
+    timeout-minutes: 5
     runs-on: ubuntu-latest
 
     steps:
       - name: Ceckout autotest repository
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - run: ls
 
 
