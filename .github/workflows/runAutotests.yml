@@ -9,9 +9,7 @@ jobs:
 
     steps:
       - name: Ceckout autotest repository
-        uses: actions/checkout@master
-        with:
-          name: Volkov-AWG/antology
-      - run: ls 
+        uses: actions/checkout@V1
+      - run: ls -la
 
 
