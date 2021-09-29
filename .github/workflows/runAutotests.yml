@@ -12,15 +12,6 @@ jobs:
         uses: actions/checkout@master
         with:
           name: Volkov-AWG/antology
-      - uses: actions/checkout@v2
-
-      - name: Install node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-      - name: Npm install
-        run: npm install
-      - name: Run autotests
-        run: node server
+      - run: ls 
 
 
