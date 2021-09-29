@@ -1,4 +1,4 @@
-name: Autotests worker
+name: autotests-worker
 
 on: push
 
@@ -9,7 +9,7 @@ jobs:
 
     steps:
       - name: Ceckout autotest repository
-        uses: actions/checkout@V1
+        uses: actions/checkout@v1
       - run: ls -la
 
 
