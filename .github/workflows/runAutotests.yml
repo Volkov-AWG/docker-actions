@@ -1,39 +1,41 @@
 name: Autotests worker
 
-on: 
- push:
-   branches: 
-     - master
+on: push
 
 jobs:
   Create-docker-net:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
       - run: docker network create --driver=bridge --subnet=10.10.0.0/16  test_net
   Run-MONGO-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:
+      - uses: actions/checkout@v2
       - run: docker-compose -f .github/workflows/components/mongo/docker-compose.yml up -d
   Run-POSTGRES-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:    
+      - uses: actions/checkout@v2
       - run: docker-compose -f .github/workflows/components/postgres/docker-compose.yml up -d
   Run-KAFKA-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:    
+      - uses: actions/checkout@v2
       - run: docker-compose -f .github/workflows/components/kafka/docker-compose.yml up -d
   Run-MAUNTEBANK-container:
     timeout-minutes: 20
     runs-on: ubuntu-latest
     needs: [Create-docker-net]
     steps:    
+       - uses: actions/checkout@v2
        - run: docker-compose -f .github/workflows/components/mauntebank/docker-compose.yml up -d
   Get-info-docker-net:
     timeout-minutes: 20
