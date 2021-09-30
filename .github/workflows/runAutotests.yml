@@ -8,6 +8,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - run: ls
       - name: Ceckout autotest repository
         uses: actions/checkout@v2
       - run: ls
